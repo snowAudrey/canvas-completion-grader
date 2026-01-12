@@ -58,6 +58,7 @@ source .env
 set +a
 
 python canvas_completion_grader.py
+```
 
 ---
 
@@ -76,7 +77,6 @@ system transparent and suitable for academic use.
 
 ## Acknowledgments
 Initial implementation developed with assistance from ChatGPT.
-
 
 
 
