@@ -2,9 +2,8 @@
 
 Automates **completion-based grading** for Canvas courses using the Canvas API.
 
-This script checks student submissions on a weekly schedule and updates the Canvas
-Gradebook to reflect **Complete / Incomplete-style grading**, including courses that
-use **0/1 point assignments** for completion.
+This script checks student submissions and updates the Canvas Gradebook to reflect **Complete / Incomplete-style grading**, including courses that
+use **0/1 point assignments** for completion. 
 
 Late submissions are counted as complete.
 
@@ -18,7 +17,9 @@ Late submissions are counted as complete.
   - Point-based completion grading (e.g., 0 / 1)
 - Ignores lateness (submission presence only)
 - Safe by default with `DRY_RUN` mode
-- Designed for weekly automation
+- Designed for controlled, instructor-in-the-loop execution
+- **Excludes non-submission assessments** (e.g., presentations) to
+  preserve manual rubric-based grading
 
 ---
 
@@ -31,6 +32,9 @@ For each eligible assignment:
 
 Assignments are graded only after a configurable **grace period** and within a
 rolling **time window**.
+
+Assignments that do not expect student submissions are intentionally excluded
+from automated grading.
 
 ---
 
@@ -63,15 +67,20 @@ python canvas_completion_grader.py
 ---
 
 ## Scheduling
-The script is designed to be run automatically on a fixed weekly schedule
-(e.g., **Thursdays at 5:00 pm**).
+The script is designed to be run **manually** by the instructor. 
+
+Although it is compatible with automated schedulers (e.g., GitHub Actions),
+manual execution is preferred to reduce risk when courses include assessment types
+that require instructor judgment (e.g., presentations).
+
+This design choice ensures that automated grading does not overwrite manually
+assigned grades for non-submission-based assessments.
 
 ---
 
 ## Design notes
 This tool intentionally avoids AI-based grading.
-All grading decisions are deterministic, auditable, and policy-driven, making the
-system transparent and suitable for academic use.
+All grading decisions are based solely on the presence or absence of a submission at the time the script runs. 
 
 ---
 
